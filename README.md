@@ -1,8 +1,8 @@
 ## Strapi tools
 ### v 4.x.x and above only
 
-this is a list of bash scripts used to install , build, start and upgrade the strapi server:
-This is intened to be used just after the creation of a new strapi project, but an be added later also
+this is a list of bash scripts used to install, build, start and upgrade the trapi server:
+This is intended to be used just after the creation of a new strapi project, but an be added later also
 
 ### installation of the package
 
@@ -16,6 +16,25 @@ where api is the directory that contain strapi
 
 see [how to install strapi from scratch](wiki/how-to-install-strapi) for further info.
 
+Once in your Strapi server root directory, clone this project:
+
+Check that your git directory is sync with your strapi directory
+```
+```
+
+```
+ 
+git pull && git status && git add . && git commit -m "sync strapi with git directory"
+git clone https://git.pulsar113.org/P113/strapi_tools.git tools
+cd tools
+./install.sh
+cd ../
+./build.sh
+pm2 start ecosystem.config.js 
+pm2 save
+./start.sh
+git add . && git commit -m ""
+```
 
 #### Install
 
