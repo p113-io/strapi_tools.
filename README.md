@@ -69,13 +69,13 @@ The Admin templates have to be rebuild when:
 * => api
 * => service
 * => ...
-* plugin, api , service or any files in directory config is modified 
+* plugin, api, service or any files in directory config is modified 
 
 The script:
 * set node version to the adequate value
 * update NPM, PM2 and YARN to the last version
 * execute git pull to update the Strapi project 
-* execute yarn build to build the templates
+* execute strapi build to build the templates
 
 ```
 ./build.sh
@@ -88,9 +88,9 @@ This is a script to upgrade the Strapi server to a new version
 
 The script:
   * set the node version to the adequate value 
-  * parse the package.json file to get the current trapi version 
+  * parse the package.json file to get the current Strapi version 
   * check if parameter is used, and if not ask for one
-  * replace in package.json the trapi version with the new version
+  * replace in package.json the Strapi version with the new version
   * execute build.sh to rebuild the admin templates
 
 The script can be used differently:
