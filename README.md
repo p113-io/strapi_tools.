@@ -7,12 +7,15 @@ This is intened to be used just after the creation of a new strapi project, but 
 ### installation of the package
 
 Go to your Strapi root directory:
-in vesta servers the path looks like this
-where api is the directory that contain strapi
-see [how to install strapi from scratch](wiki/how-to-install-strapi) for further info
+
+In Vesta servers the path looks like this:
 ```
 cd /home/$user/web/api.mydomanio.com/api/
 ```
+where api is the directory that contain strapi
+
+see [how to install strapi from scratch](wiki/how-to-install-strapi) for further info.
+
 
 #### Install
 
