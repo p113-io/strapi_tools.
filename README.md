@@ -14,7 +14,7 @@ cd /home/$user/web/api.mydomanio.com/api/
 ```
 where api is the directory that contain Strapi
 
-see [how to install Strapi from scratch](wiki/how-to-install-strapi) for further info.
+see [how to install Strapi from scratch](/wiki/how-to-install-strapi) for further info.
 
 Once in your Strapi server root directory, clone this project:
 
