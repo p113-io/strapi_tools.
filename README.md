@@ -123,4 +123,6 @@ set in .env parameters for:
 * name of the API (api.animaespacio)
 * node version
 
-load .env with touch in install , build, upgrade , start to use tne .env stored values
+load .env with touch in install, build, upgrade, start to use the .env stored values
+in Install script:
+* Check if .env values are set, if not, prompt for values and write them in .env
