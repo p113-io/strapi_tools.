@@ -23,9 +23,29 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-echo "## Set node version to 17" 
+##
+# check if 
+# ../.env file exists 
+# and if apiName and nodeVersion are set, 
+# if not, prompt for nodeVersion value and for apiName value 
+# and write the values to the .env file
+##
+
+if [ -f ../.env ]; then
+  source ../.env
+else
+  echo "## Set apiName and nodeVersion"
+  read -p "apiName: " apiName
+  read -p "nodeVersion: " nodeVersion
+  echo "apiName=$apiName"
+  echo "nodeVersion=$nodeVersion"
+  echo "apiName=$apiName" >> ../.env
+  echo "nodeVersion=$nodeVersion" >> ../.env
+fi
+
+echo "## Set node version to "$nodeVersion" and apiName to "$apiName" in .env file" 
 ## set node version
-nvm use 17
+nvm use $nodeVersion
 
 echo "## check if pm2 is installed"
 ## check if pm2 is installed
