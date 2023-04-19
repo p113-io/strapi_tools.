@@ -69,6 +69,17 @@ echo "## Set node version to "$NODE_VERSION" and API_NAME to "$API_NAME" in .env
 ## set node version
 nvm use $NODE_VERSION
 
+echo "## check if yarn is installed"
+## check if pm2 is installed
+yarn -v > /dev/null 2>&1
+if [ $? -ne 0 ]; 
+then
+  echo "## install yarn"
+  ## install pm2@latest
+  npm install --location=global yarn
+  exit 1
+fi
+
 echo "## check if pm2 is installed"
 ## check if pm2 is installed
 pm2 -v > /dev/null 2>&1
