@@ -26,8 +26,8 @@ export NVM_DIR="$HOME/.nvm"
 ##
 # check if 
 # ../.env file exists 
-# and if apiName and nodeVersion are set, 
-# if not, prompt for nodeVersion value and for apiName value 
+# and if API_NAME and NODE_VERSION are set, 
+# if not, prompt for NODE_VERSION value and for API_NAME value 
 # and write the values to the .env file
 ##
 # Check if .env file exists and load variables
@@ -36,38 +36,38 @@ chmod u+w ../.env
 if [ -f ../.env ]; then
   source ../.env
   
-  # Prompt for apiName if not set
-  if [ -z "$apiName" ]; then
-    echo "## Set apiName"
-    read -p "apiName: " apiName
-    echo "apiName='$apiName'"
-    echo "apiName='${apiName//\'/\\\'}'" >> ../.env
+  # Prompt for API_NAME if not set
+  if [ -z "$API_NAME" ]; then
+    echo "## Set API_NAME"
+    read -p "API_NAME: " API_NAME
+    echo "API_NAME='$API_NAME'"
+    echo "API_NAME='${API_NAME//\'/\\\'}'" >> ../.env
   fi
   
-  # Prompt for nodeVersion if not set
-  if [ -z "$nodeVersion" ]; then  
-    echo "## Set nodeVersion"
-    read -p "nodeVersion: " nodeVersion
-    echo "nodeVersion='$nodeVersion'"
-    echo "nodeVersion='${nodeVersion//\'/\\\'}'" >> ../.env
+  # Prompt for NODE_VERSION if not set
+  if [ -z "$NODE_VERSION" ]; then  
+    echo "## Set NODE_VERSION"
+    read -p "NODE_VERSION: " NODE_VERSION
+    echo "NODE_VERSION='$NODE_VERSION'"
+    echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
   fi
 else
-  # Prompt for apiName and nodeVersion if .env file does not exist
-  echo "## Set apiName and nodeVersion"
-  read -p "apiName: " apiName
-  read -p "nodeVersion: " nodeVersion
-  echo "apiName='$apiName'"
-  echo "nodeVersion='$nodeVersion'"
-  echo "apiName='${apiName//\'/\\\'}'" >> ../.env
-  echo "nodeVersion='${nodeVersion//\'/\\\'}'" >> ../.env
+  # Prompt for API_NAME and NODE_VERSION if .env file does not exist
+  echo "## Set API_NAME and NODE_VERSION"
+  read -p "API_NAME: " API_NAME
+  read -p "NODE_VERSION: " NODE_VERSION
+  echo "API_NAME='$API_NAME'"
+  echo "NODE_VERSION='$NODE_VERSION'"
+  echo "API_NAME='${API_NAME//\'/\\\'}'" >> ../.env
+  echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
 fi
 
 # Reload .env variables
 source ../.env
 
-echo "## Set node version to "$nodeVersion" and apiName to "$apiName" in .env file" 
+echo "## Set node version to "$NODE_VERSION" and API_NAME to "$API_NAME" in .env file" 
 ## set node version
-nvm use $nodeVersion
+nvm use $NODE_VERSION
 
 echo "## check if pm2 is installed"
 ## check if pm2 is installed
@@ -85,7 +85,7 @@ then
   exit 1
 fi
 
-## modify ecosystem.config name parameter to apiName
+## modify ecosystem.config name parameter to API_NAME
 # Chemin vers le fichier javascript
 file_path="ecosystem.config.js"
 
@@ -96,10 +96,10 @@ line_number=$(grep -n "name:" $file_path | cut -d: -f1)
 current_name=$(grep "name:" $file_path | awk '{print $2}' | tr -d ',')
 
 # Remplacer la valeur actuelle par la nouvelle valeur
-sed -i "${line_number}s/${current_name}/${apiName}/" $file_path
+sed -i "${line_number}s/${current_name}/${API_NAME}/" $file_path
 
 # Afficher le résultat
-echo "## name field updated with: " $apiName
+echo "## name field updated with: " $API_NAME
 
 echo "## copy ecosystem.config in root directory"
 ## copy ecosystem.config in root directory
