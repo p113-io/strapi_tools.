@@ -37,12 +37,12 @@ then
 fi
 
 ## copy ecosystem.config in root directory
-cp -r ecosystem.config ../.
+cp ecosystem.config.js ../.
 
 ## copy build.sh , start.sh, upgrade.sh in root directory
-cp -r build.sh ../.
-cp -r start.sh ../.
-cp -r upgrade.sh ../.
+cp  build.sh ../.
+cp  start.sh ../.
+cp  upgrade.sh ../.
 
 ## go to root directory
 cd ../
