@@ -116,3 +116,11 @@ The script:
 ```
 ./start.sh
 ```
+
+## Todo
+
+set in .env parameters for:
+* name of the API (api.animaespacio)
+* node version
+
+load .env with touch in install , build, upgrade , start to use tne .env stored values
