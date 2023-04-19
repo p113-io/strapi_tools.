@@ -11,8 +11,26 @@
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm use 17
-npm install --location=global npm yarn
+
+# set .env permissions for writing
+chmod u+w .env
+
+# load .env variables
+source .env
+
+# Prompt for NODE_VERSION if not set
+if [ -z "$NODE_VERSION" ]; then  
+  echo "## Set NODE_VERSION"
+  read -p "NODE_VERSION: " NODE_VERSION
+  echo "NODE_VERSION='$NODE_VERSION'"
+  echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> .env
+fi
+# Set node version
+nvm use $NODE_VERSION
+
+# update yarn and pm2
+npm install --location=global yarn pm2@latest
+
 # Définissez la chaîne de recherche par défaut
 # Récupération de la version à remplacer à partir du premier paramètre
 new_version=$1
@@ -43,17 +61,9 @@ if [ "$choice" == "yes" ]; then
    
   echo "package.json updated"
 
-  # reinstaller les packages 
-  echo "INSTALL NEW PACKAGES"
-  pnpm i --shamefully-hoist --fix-lockfile -P 
-  #yarn
-
   # rebuild strapi
   ./build.sh
-  
-  pnpm build
-  # yarn build
-  
+
   # restart server
   ./start.sh
 else
