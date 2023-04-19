@@ -32,12 +32,6 @@ git clone https://git.pulsar113.org/P113/strapi_tools.git tools
 cd tools
 chmod +x+w install.sh build.sh start.sh upgrade.sh
 ./install.sh
-cd ../
-./build.sh
-pm2 start ecosystem.config.js 
-pm2 save
-./start.sh
-
 ```
 Then: sync with your git directory
 ```
