@@ -32,6 +32,8 @@ export NVM_DIR="$HOME/.nvm"
 ##
 # Check if .env file exists and load variables
 if [ -f ../.env ]; then
+  ## set .env permissions to be writenable
+  chmod u+w ../.env
   source ../.env
   
   # Prompt for apiName if not set
