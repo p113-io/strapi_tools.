@@ -36,7 +36,13 @@ cd ../
 pm2 start ecosystem.config.js 
 pm2 save
 ./start.sh
-git add . && git commit -m ""
+
+```
+Then: sync with your git directory
+```
+git add . 
+git commit -m "added strapi tools from https://git.pulsar113.org/P113/strapi_tools"
+git push
 ```
 
 #### Install
