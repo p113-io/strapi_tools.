@@ -22,7 +22,7 @@ see [how to install strapi from scratch](wiki/how-to-install-strapi) for further
 * check if pm2 is installed 
 * if not
 * => install pm2@latest 
-* => pm2 setup
+* => run pm2 setup
 * then 
 * => copy ecosystem.config in root directory
 * => copy build.sh , start.sh, upgrade.sh in root directory
