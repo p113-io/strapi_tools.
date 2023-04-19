@@ -75,6 +75,22 @@ then
   exit 1
 fi
 
+## modify ecosystem.config name parameter to apiName
+# Chemin vers le fichier javascript
+file_path="ecosystem.config.js"
+
+# Trouver la ligne qui contient le champ "name"
+line_number=$(grep -n "name:" $file_path | cut -d: -f1)
+
+# Extraire la valeur actuelle du champ "name"
+current_name=$(grep "name:" $file_path | awk '{print $2}' | tr -d ',')
+
+# Remplacer la valeur actuelle par la nouvelle valeur
+sed -i "${line_number}s/${current_name}/${apiName}/" $file_path
+
+# Afficher le résultat
+echo "## name field updated with: " $apiName
+
 echo "## copy ecosystem.config in root directory"
 ## copy ecosystem.config in root directory
 cp ecosystem.config.js ../.
