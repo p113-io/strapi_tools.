@@ -103,3 +103,16 @@ The script can be used differently:
 ./upgrade.sh
 
 ```
+
+### Start
+This is a script to start or restart the PM2 Strapi server
+
+The script:
+* set the node version to the adequate value 
+* set the NODE_ENV parameter to development or production
+* run pm2 update
+* run pm2 start ecosystem.config.js -f --exp-backoff-restart-delay=100
+* run pm2 save
+```
+./start.sh
+```
