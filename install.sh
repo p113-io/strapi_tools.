@@ -26,7 +26,8 @@ nvm use 17
 
 ## check if pm2 is installed
 pm2 -v > /dev/null 2>&1
-if [ $? -ne 0 ]; then
+if [ $? -ne 0 ]; 
+then
   ## install pm2@latest
   npm install --location=global pm2@latest
 
@@ -43,10 +44,15 @@ cp -r build.sh ../.
 cp -r start.sh ../.
 cp -r upgrade.sh ../.
 
-
+## go to root directory
+cd ../
 ## rebuild strapi
 ./build.sh
 
-## restart server
+## restart server and empty the pm2 cache
+pm2 kill 
+pm2 flush
+pm2 start ecosystem.config.js 
+pm2 save 
 ./start.sh
 
