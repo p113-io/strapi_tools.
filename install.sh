@@ -84,10 +84,12 @@ then
 
   exit 1
 fi
+## copy ecosystem.config in root directory
+cp ecosystem.config.js ../ecosystem.config.js
 
 ## modify ecosystem.config name parameter to API_NAME
 # Chemin vers le fichier javascript
-file_path="./ecosystem.config.js"
+file_path="../ecosystem.config.js"
 
 # Trouver la ligne qui contient le champ "name"
 line_number=$(grep -n "name:" $file_path | cut -d: -f1)
@@ -104,8 +106,7 @@ sed -i "${line_number}s/${current_name}/'${API_NAME}'/" $file_path
 echo "## name field updated with: " $API_NAME
 
 echo "## copy ecosystem.config in root directory"
-## copy ecosystem.config in root directory
-cp ecosystem.config.js ../ecosystem.config.js
+
 
 echo "## copy build.sh , start.sh, upgrade.sh in root directory"
 ## copy build.sh , start.sh, upgrade.sh in root directory
