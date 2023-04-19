@@ -33,6 +33,18 @@ export NVM_DIR="$HOME/.nvm"
 
 if [ -f ../.env ]; then
   source ../.env
+  if [ -z "$apiName" ]; then
+    echo "## Set apiName"
+    read -p "apiName: " apiName
+    echo "apiName=$apiName"
+    echo "apiName=$apiName" >> ../.env
+  fi
+  if [ -z "$nodeVersion" ]; then  
+    echo "## Set nodeVersion"
+    read -p "nodeVersion: " nodeVersion
+    echo "nodeVersion=$nodeVersion"
+    echo "nodeVersion=$nodeVersion" >> ../.env
+  fi  
 else
   echo "## Set apiName and nodeVersion"
   read -p "apiName: " apiName
@@ -42,7 +54,7 @@ else
   echo "apiName=$apiName" >> ../.env
   echo "nodeVersion=$nodeVersion" >> ../.env
 fi
-
+source ../.env
 echo "## Set node version to "$nodeVersion" and apiName to "$apiName" in .env file" 
 ## set node version
 nvm use $nodeVersion
