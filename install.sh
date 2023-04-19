@@ -94,7 +94,7 @@ line_number=$(grep -n "name:" $file_path | cut -d: -f1)
 
 # Extraire la ligne contenant la propriété "name" du fichier javascript
 line_number=$(grep -n "name:" $file_path | cut -d ":" -f 1)
-current_name=$(grep "name:" $file_path | awk '{print $2}' | tr -d "',")
+current_name=$(grep "name:" $file_path | awk -F "[,:]" '{print $2}' | tr -d " '")
 echo "current_name: "$current_name
 
 # Remplacer la valeur actuelle par la nouvelle valeur
