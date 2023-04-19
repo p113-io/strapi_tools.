@@ -5,6 +5,5 @@ module.exports = {
     args: 'develop',
     instances : "2",
     exec_mode : "cluster"
-  }] ,
-  
+  }],
 };
