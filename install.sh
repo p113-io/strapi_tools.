@@ -30,31 +30,39 @@ export NVM_DIR="$HOME/.nvm"
 # if not, prompt for nodeVersion value and for apiName value 
 # and write the values to the .env file
 ##
-
+# Check if .env file exists and load variables
 if [ -f ../.env ]; then
   source ../.env
+  
+  # Prompt for apiName if not set
   if [ -z "$apiName" ]; then
     echo "## Set apiName"
     read -p "apiName: " apiName
     echo "apiName='$apiName'"
-    echo "apiName=\"$apiName\"" >> ../.env
+    echo "apiName='${apiName//\'/\\\'}'" >> ../.env
   fi
+  
+  # Prompt for nodeVersion if not set
   if [ -z "$nodeVersion" ]; then  
     echo "## Set nodeVersion"
     read -p "nodeVersion: " nodeVersion
     echo "nodeVersion='$nodeVersion'"
-    echo "nodeVersion=\"$nodeVersion\"" >> ../.env
-  fi  
+    echo "nodeVersion='${nodeVersion//\'/\\\'}'" >> ../.env
+  fi
 else
+  # Prompt for apiName and nodeVersion if .env file does not exist
   echo "## Set apiName and nodeVersion"
   read -p "apiName: " apiName
   read -p "nodeVersion: " nodeVersion
   echo "apiName='$apiName'"
-  echo "nodeVersion=\"$nodeVersion\""
-  echo "apiName=\"$apiName\"" >> ../.env
-  echo "nodeVersion=\"$nodeVersion\"" >> ../.env
+  echo "nodeVersion='$nodeVersion'"
+  echo "apiName='${apiName//\'/\\\'}'" >> ../.env
+  echo "nodeVersion='${nodeVersion//\'/\\\'}'" >> ../.env
 fi
+
+# Reload .env variables
 source ../.env
+
 echo "## Set node version to "$nodeVersion" and apiName to "$apiName" in .env file" 
 ## set node version
 nvm use $nodeVersion
