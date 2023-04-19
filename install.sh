@@ -37,22 +37,22 @@ if [ -f ../.env ]; then
     echo "## Set apiName"
     read -p "apiName: " apiName
     echo "apiName='$apiName'"
-    echo "apiName='$apiName'" >> ../.env
+    echo "apiName=\"$apiName\"" >> ../.env
   fi
   if [ -z "$nodeVersion" ]; then  
     echo "## Set nodeVersion"
     read -p "nodeVersion: " nodeVersion
     echo "nodeVersion='$nodeVersion'"
-    echo "nodeVersion='$nodeVersion'" >> ../.env
+    echo "nodeVersion=\"$nodeVersion\"" >> ../.env
   fi  
 else
   echo "## Set apiName and nodeVersion"
   read -p "apiName: " apiName
   read -p "nodeVersion: " nodeVersion
   echo "apiName='$apiName'"
-  echo "nodeVersion='$nodeVersion'"
-  echo "apiName='$apiName'" >> ../.env
-  echo "nodeVersion='$nodeVersion'" >> ../.env
+  echo "nodeVersion=\"$nodeVersion\""
+  echo "apiName=\"$apiName\"" >> ../.env
+  echo "nodeVersion=\"$nodeVersion\"" >> ../.env
 fi
 source ../.env
 echo "## Set node version to "$nodeVersion" and apiName to "$apiName" in .env file" 
