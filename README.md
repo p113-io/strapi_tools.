@@ -21,11 +21,11 @@ see [how to install strapi from scratch](wiki/how-to-install-strapi) for further
 
 * check if pm2 is installed 
 * if not
-** install pm2@latest 
-** pm2 setup
+* => install pm2@latest 
+* => pm2 setup
 * then 
-** copy ecosystem.config in root directory
-** copy build.sh , start.sh, upgrade.sh in root directory
+* => copy ecosystem.config in root directory
+* => copy build.sh , start.sh, upgrade.sh in root directory
 
 ```
 cd tools
@@ -41,10 +41,10 @@ The Admin templates have to be rebuild when:
 
 * strapi is updated: manually or using the upgrade script
 * a new strapi generate is used to create new:
-** plugin
-** api
-** service
-** ...
+* => plugin
+* => api
+* => service
+* => ...
 * plugin, api , service or any files in directory config is modified 
 
 The script:
