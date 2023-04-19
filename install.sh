@@ -92,12 +92,14 @@ file_path="./ecosystem.config.js"
 # Trouver la ligne qui contient le champ "name"
 line_number=$(grep -n "name:" $file_path | cut -d: -f1)
 
-# Extraire la valeur actuelle du champ "name"
+# Extraire la ligne contenant la propriété "name" du fichier javascript
+line_number=$(grep -n "name:" $file_path | cut -d ":" -f 1)
 current_name=$(grep "name:" $file_path | awk '{print $2}' | tr -d "',")
-echo "## current name: " $current_name
+echo "current_name: "$current_name
 
 # Remplacer la valeur actuelle par la nouvelle valeur
 sed -i "${line_number}s/${current_name}/'${API_NAME}'/" $file_path
+
 # Afficher le résultat
 echo "## name field updated with: " $API_NAME
 
