@@ -96,7 +96,7 @@ The script can be used differently:
 
 * With a parameter 
 ```
-./upgrade.sh 4.92
+./upgrade.sh 4.9.2
 ```
 * Without parameter
 ```
@@ -116,14 +116,3 @@ The script:
 ```
 ./start.sh
 ```
-
-## Todo
-
-set in .env parameters for:
-* name of the API (api.animaespacio)
-* node version
-
-load .env with touch in build, upgrade, start to use the .env stored values
-
-in Install script:
-* Check if .env values are set, if not, prompt for values and write them in .env //done
