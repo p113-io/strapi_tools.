@@ -94,10 +94,10 @@ line_number=$(grep -n "name:" $file_path | cut -d: -f1)
 
 # Extraire la valeur actuelle du champ "name"
 current_name=$(grep "name:" $file_path | awk '{print $2}' | tr -d ',')
+echo "## current name: " $current_name
 
 # Remplacer la valeur actuelle par la nouvelle valeur
 sed -i "${line_number}s/${current_name}/\"${API_NAME}\"/" $file_path
-
 # Afficher le résultat
 echo "## name field updated with: " $API_NAME
 
