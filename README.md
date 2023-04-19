@@ -28,8 +28,6 @@ git commit -m "sync Strapi with git directory"
 
 Then: install your Strapi tools inside the Strapi
 ```
- 
-
 git clone https://git.pulsar113.org/P113/strapi_tools.git tools
 cd tools
 ./install.sh
