@@ -30,6 +30,7 @@ Then: install your Strapi tools inside the Strapi
 ```
 git clone https://git.pulsar113.org/P113/strapi_tools.git tools
 cd tools
+chmod +x+w install.sh build.sh start.sh upgrade.sh
 ./install.sh
 cd ../
 ./build.sh
