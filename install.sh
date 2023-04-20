@@ -67,7 +67,7 @@ if [ -f ../.env ]; then
     echo "## Set IS_CLUSTER [true or false]"
     read -p "IS_CLUSTER: " IS_CLUSTER
     echo "IS_CLUSTER='$IS_CLUSTER'"
-    echo "IS_CLUSTER='${IS_CLUSTER//\'/\\\'}'" >> ../.env
+    echo "IS_CLUSTER=${IS_CLUSTER//\'/\\\'}" >> ../.env
   fi
 else
   # Prompt for API_NAME and NODE_VERSION if .env file does not exist
