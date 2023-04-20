@@ -14,7 +14,7 @@ cd /home/$user/web/api.mydomanio.com/api/
 ```
 where api is the directory that contain Strapi
 
-see [how to install Strapi from scratch](../../wiki/how-to-install-strapi) for further info.
+see [how to install Strapi from scratch](wiki/how-to-install-strapi) for further info.
 
 Once in your Strapi server root directory, clone this project:
 
@@ -39,6 +39,19 @@ git add .
 git commit -m "added strapi tools from https://git.pulsar113.org/P113/strapi_tools"
 git push
 ```
+### Strapi tools update
+When Strapi tools are installed, they are still in relation with the git repository.
+
+Update your files , reset your permissions and relaunch the install script
+
+```
+cd tools
+git pull
+chmod +x+w install.sh build.sh start.sh upgrade.sh
+./install.sh
+```
+
+### Details of the Scripts
 
 #### Install
 
@@ -96,7 +109,7 @@ The script can be used differently:
 
 * With a parameter 
 ```
-./upgrade.sh 4.9.2
+./upgrade.sh 4.92
 ```
 * Without parameter
 ```
@@ -116,3 +129,14 @@ The script:
 ```
 ./start.sh
 ```
+
+## Todo
+
+set in .env parameters for:
+* name of the API (api.animaespacio)
+* node version
+
+load .env with touch in build, upgrade, start to use the .env stored values
+
+in Install script:
+* Check if .env values are set, if not, prompt for values and write them in .env //done

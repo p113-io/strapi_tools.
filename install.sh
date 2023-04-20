@@ -70,7 +70,7 @@ echo "## Set node version to "$NODE_VERSION" and API_NAME to "$API_NAME" in .env
 nvm use $NODE_VERSION
 
 echo "## check if yarn is installed"
-## check if pm2 is installed
+## check if yarn is installed
 yarn -v > /dev/null 2>&1
 if [ $? -ne 0 ]; 
 then
