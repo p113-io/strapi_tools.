@@ -84,7 +84,7 @@ else
   echo "API_NAME='$API_NAME'"
   echo "NODE_VERSION='$NODE_VERSION'"
   echo "API_NAME='${API_NAME//\'/\\\'}'" >> ../.env
-  echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
+  echo "NODE_VERSION=${NODE_VERSION//\'/\\\'}" >> ../.env
   echo "## Set NODE_ENV"
   read -p "NODE_ENV: [development or production]" NODE_ENV
   echo "NODE_ENV='$NODE_ENV'"
