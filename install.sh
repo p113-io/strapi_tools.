@@ -43,6 +43,14 @@ if [ -f ../.env ]; then
     echo "API_NAME='$API_NAME'"
     echo "API_NAME='${API_NAME//\'/\\\'}'" >> ../.env
   fi
+
+  # Prompt for NODE_ENV if not set
+  if [ -z "$NODE_ENV" ]; then
+    echo "## Set NODE_ENV"
+    read -p "NODE_ENV: [development or production]" NODE_ENV
+    echo "API_NAME='$NODE_ENV'"
+    echo "API_NAME='${NODE_ENV//\'/\\\'}'" >> ../.env
+  fi
   
   # Prompt for NODE_VERSION if not set
   if [ -z "$NODE_VERSION" ]; then  
@@ -59,6 +67,10 @@ else
   echo "API_NAME='$API_NAME'"
   echo "NODE_VERSION='$NODE_VERSION'"
   echo "API_NAME='${API_NAME//\'/\\\'}'" >> ../.env
+  echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
+  echo "## Set NODE_VERSION"
+  read -p "NODE_VERSION: " NODE_VERSION
+  echo "NODE_VERSION='$NODE_VERSION'"
   echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
 fi
 
@@ -102,24 +114,34 @@ cp ecosystem.config.js ../ecosystem.config.js
 # Chemin vers le fichier javascript
 file_path="../ecosystem.config.js"
 
+## champ name 
 # Trouver la ligne qui contient le champ "name"
 line_number=$(grep -n "name:" $file_path | cut -d: -f1)
-
 # Extraire la ligne contenant la propriété "name" du fichier javascript
 line_number=$(grep -n "name:" $file_path | cut -d ":" -f 1)
 current_name=$(grep "name:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
-echo "current_name: "$current_name
 
+echo "current_name: "$current_name
 # Remplacer la valeur actuelle par la nouvelle valeur
 sed -i "${line_number}s/${current_name}/'${API_NAME}'/" $file_path
-
 # Afficher le résultat
 echo "## name field updated with: " $API_NAME
 
-echo "## copy ecosystem.config in root directory"
+## champ NODE_ENV 
+# Trouver la ligne qui contient le champ "args"
+node_line_number=$(grep -n "args:" $file_path | cut -d: -f1)
+# Extraire la ligne contenant la propriété "args" du fichier javascript
+node_line_number=$(grep -n "args:" $file_path | cut -d ":" -f 1)
+node_env=$(grep "args:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
 
+echo "node_env: "$node_env
+# Remplacer la valeur actuelle par la nouvelle valeur
+sed -i "${node_line_number}s/${node_env}/'${NODE_ENV}'/" $file_path
+# Afficher le résultat
+echo "## node_version field updated with: " $NODE_VERSION
 
-echo "## copy build.sh , start.sh, upgrade.sh in root directory"
+## copy other scripts in Strapi root directory
+echo "## copy build.sh , start.sh, upgrade.sh in Strapi root directory"
 ## copy build.sh , start.sh, upgrade.sh in root directory
 cp  build.sh ../.
 cp  start.sh ../.
