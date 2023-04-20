@@ -36,11 +36,9 @@ chmod u+w ../.env
 if [ -f ../.env ]; then
   source ../.env
   ## Check if first install and then all the .env variables are not set.
- if [[ -z "${API_NAME:-}" && -z "${NODE_ENV:-}" && -z "${NODE_VERSION:-}" ]]; then
+  if [[ -z "${API_NAME:-}" && -z "${NODE_ENV:-}" && -z "${NODE_VERSION:-}" ]]; then
     echo "## Strapi tools" >> ../.env
- fi
-
-
+  fi
   # Prompt for API_NAME if not set
   if [ -z "$API_NAME" ]; then
     echo "## Set API_NAME"
