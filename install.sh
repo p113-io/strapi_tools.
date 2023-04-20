@@ -46,36 +46,42 @@ if [ -f ../.env ]; then
   then
     ## add first line comment for Strapi tools in .env
     echo "## Database" >> ../.env
-     ## Get DATABASE_CLIENT from ../config/database.js
+    ## Get DATABASE_CLIENT from ../config/database.js
     echo "DATABASE_CLIENT="$(cat ../config/database.js | grep -E "client" | awk -F "'" '{print $2}') >> ../.env
+    
     ## Check if DATABASE_HOST
     if [ -z "$DATABASE_HOST" ]; 
     then
       echo "DATABASE_HOST=127.0.0.1" >> ../.env
     fi
+    
     ## Check if DATABASE_PORT
     if [ -z "$DATABASE_PORT" ];
     then
       echo "DATABASE_PORT=3306" >> ../.env
     fi
+    
     ## Check if DATABASE_NAME
     if [ -z "$DATABASE_NAME" ];
     then
       ## Get DATABASE_NAME from ../config/database.js
       echo "DATABASE_NAME="$(cat ../config/database.js | grep -E "database" | awk -F "'" '{print $4}') >> ../.env
     fi
+    
     ## Check if DATABASE_USERNAME=anima_api
     if [ -z "$DATABASE_USERNAME" ];
     then
       ## Get DATABASE_NAME from ../config/database.js
       echo "DATABASE_USERNAME="$(cat ../config/database.js | grep -E "user" | awk -F "'" '{print $4}') >> ../.env
     fi
+    
     ## Check if DATABASE_PASSWORD
     if [ -z "$DATABASE_PASSWORD" ];
     then
       ## Get DATABASE_NAME from ../config/database.js
       echo "DATABASE_PASSWORD="$(cat ../config/database.js | grep -E "password" | awk -F "'" '{print $4}') >> ../.env
     fi
+
     ## Check if DATABASE_SSL=false
     if [ -z "$DATABASE_SSL" ];
     then
@@ -83,9 +89,12 @@ if [ -f ../.env ]; then
       echo "DATABASE_SSL=false" >> ../.env
     fi
 
-    
     ## Copy new config files
-
+    cp config/database.js ../config/database.js
+    cp config/api.js ../config/api.js
+    cp config/server.js ../config/server.js
+    cp config/admin.js ../config/admin.js
+    echo "## New config files added and .env file updated"
   fi
 
  
