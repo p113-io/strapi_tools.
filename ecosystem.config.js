@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'api backup p113',
+    name: 'api.mydomain',
     script: 'yarn',
     interpreter: "bash",
     args: 'develop',
