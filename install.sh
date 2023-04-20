@@ -162,7 +162,7 @@ cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d: -f1)
 # Extraire la ligne contenant la propriété "exec_mode" du fichier javascript
 cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d ":" -f 1)
 cluster=$(grep "exec_mode:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
-echo "cluster: "$cluster
+echo "cluster: " $cluster
 # Remplacer la valeur actuelle par la nouvelle valeur : IS_CLUSTER=true ? 'cluster': 'fork'
 if [[ "$IS_CLUSTER" == true ]]; 
 then
@@ -170,7 +170,8 @@ then
 
   # Si la variable instances n'est pas définie dans le fichier ecosystem , 
   # on l'ajoute avec une valeur de 2
-  if ! grep -q 'instances :' $file_path; then
+  if ! grep -q 'instances :' $file_path; 
+  then
     sed -i '/apps : [{/a \    instances : "2",' $file_path
   else 
     # sinon on modifie la valeur de instances dans le fichier
@@ -183,8 +184,8 @@ then
 else
   exec_mode="fork"
   # enlever la ligne qui contient le champ "instances"
-  if grep -q 'instances :' ecosystem.config.js; then
-    sed -i '/instances :/d' ecosystem.config.js
+  if grep -q 'instances :' $file_path; then
+    sed -i '/instances :/d' $file_path
   fi
 fi
 sed -i "${cluster_line_number}s/${exec_mode}/'${exec_mode}'/" $file_path
