@@ -48,8 +48,8 @@ if [ -f ../.env ]; then
   if [ -z "$NODE_ENV" ]; then
     echo "## Set NODE_ENV"
     read -p "NODE_ENV: [development or production]" NODE_ENV
-    echo "API_NAME='$NODE_ENV'"
-    echo "API_NAME='${NODE_ENV//\'/\\\'}'" >> ../.env
+    echo "NODE_ENV='$NODE_ENV'"
+    echo "NODE_ENV='${NODE_ENV//\'/\\\'}'" >> ../.env
   fi
   
   # Prompt for NODE_VERSION if not set
@@ -68,16 +68,16 @@ else
   echo "NODE_VERSION='$NODE_VERSION'"
   echo "API_NAME='${API_NAME//\'/\\\'}'" >> ../.env
   echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
-  echo "## Set NODE_VERSION"
-  read -p "NODE_VERSION: " NODE_VERSION
-  echo "NODE_VERSION='$NODE_VERSION'"
-  echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
+  echo "## Set NODE_ENV"
+  read -p "NODE_ENV: [development or production]" NODE_ENV
+  echo "NODE_ENV='$NODE_ENV'"
+  echo "NODE_ENV='${NODE_ENV//\'/\\\'}'" >> ../.env
 fi
 
 # Reload .env variables
 source ../.env
 
-echo "## Set node version to "$NODE_VERSION" and API_NAME to "$API_NAME" in .env file" 
+echo "## Set \n node version to "$NODE_VERSION" ,\n  API_NAME to "$API_NAME",\n NODE_ENV to "$NODE_ENV" \n  in .env file" 
 ## set node version
 nvm use $NODE_VERSION
 
