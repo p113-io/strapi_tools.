@@ -1,10 +1,10 @@
 module.exports = {
   apps : [{
     name: 'api.mydomain',
+    interpreter: 'node',
     script: 'yarn',
-    interpreter: "bash",
     args: 'develop',
-    instances : "2",
-    exec_mode : "cluster"
+    instances : 2,
+    exec_mode : 'cluster'
   }],
 };
