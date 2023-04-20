@@ -181,7 +181,7 @@ then
     # Extraire la ligne contenant la propriété "instances" du fichier javascript
     instances_line_number=$(grep -n "instances:" $file_path | cut -d ":" -f 1)
     # Remplacer la valeur actuelle par la nouvelle valeur
-    sed -i "${instances_line_number}s/${INSTANCES}/'${INSTANCES}'/" $file_path
+    sed -i '${instances_line_number}s/${INSTANCES}/${INSTANCES}/' $file_path
   fi
 else
   exec_mode="fork"
@@ -196,7 +196,7 @@ cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d: -f1)
 cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d ":" -f 1)
 cluster=$(grep "exec_mode:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
 echo "cluster: " $cluster
-sed -i "${cluster_line_number}s/${exec_mode}/'${exec_mode}'/" $file_path
+sed -i '${cluster_line_number}s/${exec_mode}/${exec_mode}/' $file_path
 
 ## copy other scripts in Strapi root directory
 echo "## copy build.sh , start.sh, upgrade.sh in Strapi root directory"
