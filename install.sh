@@ -204,6 +204,7 @@ echo "## copy build.sh , start.sh, upgrade.sh in Strapi root directory"
 cp  build.sh ../.
 cp  start.sh ../.
 cp  upgrade.sh ../.
+cp  server.sh ../.
 
 echo "## go to root directory"
 ## go to root directory
