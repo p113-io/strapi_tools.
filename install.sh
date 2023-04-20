@@ -167,15 +167,14 @@ echo "cluster: "$cluster
 if [[ "$IS_CLUSTER" == true ]]; 
 then
   exec_mode="cluster"
+
   # Si la variable instances n'est pas définie dans le fichier ecosystem , 
   # on l'ajoute avec une valeur de 2
-  if ! grep -q 'instances :' ecosystem.config.js; then
-    sed -i '/apps : [{/a \    instances : "2",' ecosystem.config.js
+  if ! grep -q 'instances :' $file_path; then
+    sed -i '/apps : [{/a \    instances : "2",' $file_path
   else 
     # sinon on modifie la valeur de instances dans le fichier
     instances="2"
-    # trouver la ligne qui contient le champ "instances"
-    instances_line_number=$(grep -n "instances:" $file_path | cut -d: -f1)
     # Extraire la ligne contenant la propriété "instances" du fichier javascript
     instances_line_number=$(grep -n "instances:" $file_path | cut -d ":" -f 1)
     # Remplacer la valeur actuelle par la nouvelle valeur
