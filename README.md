@@ -132,11 +132,6 @@ The script:
 
 ## Todo
 
-set in .env parameters for:
-* name of the API (api.animaespacio)
-* node version
-
-load .env with touch in build, upgrade, start to use the .env stored values
-
-in Install script:
-* Check if .env values are set, if not, prompt for values and write them in .env //done
+check database configuration in the .env 
+if not extract it from config/database.js 
+and copy new config files
