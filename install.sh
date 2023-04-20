@@ -31,11 +31,16 @@ export NVM_DIR="$HOME/.nvm"
 # and write the values to the .env file
 ##
 # Check if .env file exists and load variables
-## set .env permissions to be writenable
+
 chmod u+w ../.env
 if [ -f ../.env ]; then
   source ../.env
-  
+  ## Check if first install and then all the .env variables are not set.
+ if [[ -z "${API_NAME:-}" && -z "${NODE_ENV:-}" && -z "${NODE_VERSION:-}" ]]; then
+    echo "## Strapi tools" >> ../.env
+ fi
+
+
   # Prompt for API_NAME if not set
   if [ -z "$API_NAME" ]; then
     echo "## Set API_NAME"
@@ -61,6 +66,7 @@ if [ -f ../.env ]; then
   fi
 else
   # Prompt for API_NAME and NODE_VERSION if .env file does not exist
+  echo "## Strapi tools" >> ../.env
   echo "## Set API_NAME and NODE_VERSION"
   read -p "API_NAME: " API_NAME
   read -p "NODE_VERSION: " NODE_VERSION
