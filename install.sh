@@ -35,6 +35,64 @@ export NVM_DIR="$HOME/.nvm"
 chmod u+w ../.env
 if [ -f ../.env ]; then
   source ../.env
+  if [ -z "$TRANSFER_TOKEN_SALT" ]; 
+  then
+    ## add first line comment for Strapi tools in .env
+    echo "TRANSFER_TOKEN_SALT=yezFK+Kpa0kFu3TH0CIIOA==" >> ../.env
+  fi
+  ## Check if DATABASE_CLIENT=mysql
+  # Prompt for DATABASE_CLIENT if not set
+  if [ -z "$DATABASE_CLIENT" ]; 
+  then
+    ## add first line comment for Strapi tools in .env
+    echo "## Database" >> ../.env
+    echo "## Set DATABASE_CLIENT"
+    read -p "DATABASE_CLIENT:[mysql, postgres, sqllite] " DATABASE_CLIENT
+    echo "DATABASE_CLIENT='$DATABASE_CLIENT'"
+    echo "DATABASE_CLIENT='${DATABASE_CLIENT//\'/\\\'}'" >> ../.env
+    ## Check if DATABASE_HOST=127.0.0.1
+    if [ -z "$DATABASE_HOST" ]; 
+    then
+      echo "DATABASE_HOST=127.0.0.1" >> ../.env
+    fi
+    ## Check if DATABASE_PORT=3306
+    if [ -z "$DATABASE_PORT" ];
+    then
+      echo "DATABASE_PORT=3306" >> ../.env
+    fi
+    ## Check if DATABASE_NAME=anima_api
+    if [ -z "$DATABASE_NAME" ];
+    then
+      ## Get DATABASE_NAME from ../config/database.js
+      echo "DATABASE_NAME="$(cat config/database.js | grep -E "database" | cut -d "'" -f 2) >> ../.env
+    fi
+    ## Check if DATABASE_USERNAME=anima_api
+    if [ -z "$DATABASE_USERNAME" ];
+    then
+      ## Get DATABASE_NAME from ../config/database.js
+      echo "DATABASE_USERNAME="$(cat config/database.js | grep -E "user" | cut -d "'" -f 2) >> ../.env
+    fi
+    ## Check if DATABASE_PASSWORD
+    if [ -z "$DATABASE_PASSWORD" ];
+    then
+      ## Get DATABASE_NAME from ../config/database.js
+      echo "DATABASE_PASSWORD="$(cat config/database.js | grep -E "password" | cut -d "'" -f 2) >> ../.env
+    fi
+
+    ## Check if DATABASE_SSL=false
+    if [ -z "$DATABASE_SSL" ];
+    then
+      ## Get DATABASE_SSL from ../config/database.js
+      echo "DATABASE_SSL=false" >> ../.env
+    fi
+
+    
+    ## Copy new config files
+
+  fi
+
+ 
+
   ## Check if first install and then all the .env variables are not set.
   if [[ -z "${API_NAME:-}" && -z "${NODE_ENV:-}" && -z "${NODE_VERSION:-}" ]]; then
     ## add first line comment for Strapi tools in .env
