@@ -37,6 +37,7 @@ if [ -f ../.env ]; then
   source ../.env
   ## Check if first install and then all the .env variables are not set.
   if [[ -z "${API_NAME:-}" && -z "${NODE_ENV:-}" && -z "${NODE_VERSION:-}" ]]; then
+    ## add first line comment for Strapi tools in .env
     echo "## Strapi tools" >> ../.env
   fi
   # Prompt for API_NAME if not set
@@ -62,10 +63,15 @@ if [ -f ../.env ]; then
     echo "NODE_VERSION='$NODE_VERSION'"
     echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
   fi
-  # Prompt for IS_CLUSTER if not set
-  if [ -z "$IS_CLUSTER" ]; then  
-    echo "## Set IS_CLUSTER [true or false]"
-    read -p "IS_CLUSTER: " IS_CLUSTER
+  # Vérifie si la variable IS_CLUSTER est définie
+  if [[ -z "${IS_CLUSTER}" ]]; then
+    # Si la variable n'est pas définie, demander une valeur true ou false avec false par défaut
+    read -p "IS_CLUSTER variable is not set. Do you want to set it to true? (y/N): " answer
+    if [[ "${answer}" == "y" ]]; then
+      IS_CLUSTER=true
+    else
+      IS_CLUSTER=false
+    fi
     echo "IS_CLUSTER='$IS_CLUSTER'"
     echo "IS_CLUSTER=${IS_CLUSTER//\'/\\\'}" >> ../.env
   fi
@@ -144,12 +150,45 @@ node_line_number=$(grep -n "args:" $file_path | cut -d: -f1)
 # Extraire la ligne contenant la propriété "args" du fichier javascript
 node_line_number=$(grep -n "args:" $file_path | cut -d ":" -f 1)
 node_env=$(grep "args:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
-
 echo "node_env: "$node_env
 # Remplacer la valeur actuelle par la nouvelle valeur
 sed -i "${node_line_number}s/${node_env}/'${NODE_ENV}'/" $file_path
 # Afficher le résultat
 echo "## node_version field updated with: " $NODE_VERSION
+
+## champ IS_CLUSTER
+# Trouver la ligne qui contient le champ "exec_mode"
+cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d: -f1)
+# Extraire la ligne contenant la propriété "exec_mode" du fichier javascript
+cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d ":" -f 1)
+cluster=$(grep "exec_mode:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
+echo "cluster: "$cluster
+# Remplacer la valeur actuelle par la nouvelle valeur : IS_CLUSTER=true ? 'cluster': 'fork'
+if [[ "$IS_CLUSTER" == true ]]; 
+then
+  exec_mode="cluster"
+  # Si la variable instances n'est pas définie dans le fichier ecosystem , 
+  # on l'ajoute avec une valeur de 2
+  if ! grep -q 'instances :' ecosystem.config.js; then
+    sed -i '/apps : [{/a \    instances : "2",' ecosystem.config.js
+  else 
+    # sinon on modifie la valeur de instances dans le fichier
+    instances="2"
+    # trouver la ligne qui contient le champ "instances"
+    instances_line_number=$(grep -n "instances:" $file_path | cut -d: -f1)
+    # Extraire la ligne contenant la propriété "instances" du fichier javascript
+    instances_line_number=$(grep -n "instances:" $file_path | cut -d ":" -f 1)
+    # Remplacer la valeur actuelle par la nouvelle valeur
+    sed -i "${instances_line_number}s/${instances}/'${instances}'/" $file_path
+  fi
+else
+  exec_mode="fork"
+  # enlever la ligne qui contient le champ "instances"
+  if grep -q 'instances :' ecosystem.config.js; then
+    sed -i '/instances :/d' ecosystem.config.js
+  fi
+fi
+sed -i "${cluster_line_number}s/${exec_mode}/'${exec_mode}'/" $file_path
 
 ## copy other scripts in Strapi root directory
 echo "## copy build.sh , start.sh, upgrade.sh in Strapi root directory"
