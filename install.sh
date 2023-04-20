@@ -61,7 +61,7 @@ if [ -f ../.env ]; then
     echo "## Set NODE_VERSION"
     read -p "NODE_VERSION: " NODE_VERSION
     echo "NODE_VERSION='$NODE_VERSION'"
-    echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
+    echo "NODE_VERSION=${NODE_VERSION//\'/\\\'}" >> ../.env
   fi
   # Vérifie si la variable IS_CLUSTER est définie
   if [[ -z "${IS_CLUSTER}" ]]; then
