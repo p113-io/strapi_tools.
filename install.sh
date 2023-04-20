@@ -151,8 +151,14 @@ node_line_number=$(grep -n "args:" $file_path | cut -d: -f1)
 node_line_number=$(grep -n "args:" $file_path | cut -d ":" -f 1)
 node_env=$(grep "args:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
 echo "node_env: "$node_env
+if [[ "$node_env" == "production" ]]; 
+then
 # Remplacer la valeur actuelle par la nouvelle valeur
-sed -i "${node_line_number}s/${node_env}/'${NODE_ENV}'/" $file_path
+sed -i "${node_line_number}s/${node_env}/'start'/" $file_path
+else
+# Remplacer la valeur actuelle par la nouvelle valeur
+sed -i "${node_line_number}s/${node_env}/'develop'/" $file_path
+fi
 # Afficher le résultat
 echo "## node_version field updated with: " $NODE_VERSION
 
