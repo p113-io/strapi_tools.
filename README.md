@@ -30,7 +30,7 @@ Then: install your Strapi tools inside the Strapi
 ```
 git clone https://git.pulsar113.org/P113/strapi_tools.git tools
 cd tools
-chmod +x+w install.sh build.sh start.sh upgrade.sh
+chmod +x+w install.sh build.sh start.sh upgrade.sh server.sh
 ./install.sh
 ```
 Then: sync with your git directory
@@ -47,7 +47,7 @@ Update your files , reset your permissions and relaunch the install script
 ```
 cd tools
 git pull
-chmod +x+w install.sh build.sh start.sh upgrade.sh
+chmod +x+w install.sh build.sh start.sh upgrade.sh server.sh
 ./install.sh
 ```
 
