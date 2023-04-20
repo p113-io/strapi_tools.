@@ -62,6 +62,13 @@ if [ -f ../.env ]; then
     echo "NODE_VERSION='$NODE_VERSION'"
     echo "NODE_VERSION='${NODE_VERSION//\'/\\\'}'" >> ../.env
   fi
+  # Prompt for IS_CLUSTER if not set
+  if [ -z "$IS_CLUSTER" ]; then  
+    echo "## Set IS_CLUSTER [true or false]"
+    read -p "IS_CLUSTER: " IS_CLUSTER
+    echo "IS_CLUSTER='$IS_CLUSTER'"
+    echo "IS_CLUSTER='${IS_CLUSTER//\'/\\\'}'" >> ../.env
+  fi
 else
   # Prompt for API_NAME and NODE_VERSION if .env file does not exist
   echo "## Strapi tools" >> ../.env
