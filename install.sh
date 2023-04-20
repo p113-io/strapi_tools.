@@ -168,7 +168,7 @@ then
     echo "## Set INSTANCES"
     read -p "INSTANCES: [number:2]" INSTANCES
     echo "INSTANCES='$INSTANCES'"
-    echo "INSTANCES='${INSTANCES//\'/\\\'}'" >> ../.env
+    echo "INSTANCES=${INSTANCES//\'/\\\'}" >> ../.env
   fi
   # Si la variable instances n'est pas définie dans le fichier ecosystem , 
   # on l'ajoute avec une valeur de 2
