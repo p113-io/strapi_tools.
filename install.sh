@@ -156,16 +156,12 @@ sed -i "${node_line_number}s/${node_env}/'${NODE_ENV}'/" $file_path
 # Afficher le résultat
 echo "## node_version field updated with: " $NODE_VERSION
 
-## champ IS_CLUSTER
-# Trouver la ligne qui contient le champ "exec_mode"
-cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d: -f1)
-# Extraire la ligne contenant la propriété "exec_mode" du fichier javascript
-cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d ":" -f 1)
-cluster=$(grep "exec_mode:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
-echo "cluster: " $cluster
-# Remplacer la valeur actuelle par la nouvelle valeur : IS_CLUSTER=true ? 'cluster': 'fork'
 if [[ "$IS_CLUSTER" == true ]]; 
 then
+
+  ## champ IS_CLUSTER
+ 
+  # Remplacer la valeur actuelle par la nouvelle valeur : IS_CLUSTER=true ? 'cluster': 'fork'
   exec_mode="cluster"
   ## Prompt for INSTANCES if not set
   if [ -z "$INSTANCES" ]; then
@@ -178,8 +174,9 @@ then
   # on l'ajoute avec une valeur de 2
   if ! grep -q 'instances :' $file_path; 
   then
-    sed -i '/apps : [{/a \    instances : "2",' $file_path
+    sed -i '/apps : [{/a \    instances : "$INSTANCES",' $file_path
   else 
+
     # sinon on modifie la valeur de instances dans le fichier
     # Extraire la ligne contenant la propriété "instances" du fichier javascript
     instances_line_number=$(grep -n "instances:" $file_path | cut -d ":" -f 1)
@@ -193,6 +190,12 @@ else
     sed -i '/instances :/d' $file_path
   fi
 fi
+# Trouver la ligne qui contient le champ "exec_mode"
+cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d: -f1)
+# Extraire la ligne contenant la propriété "exec_mode" du fichier javascript
+cluster_line_number=$(grep -n "exec_mode:" $file_path | cut -d ":" -f 1)
+cluster=$(grep "exec_mode:" $file_path | awk -F "[,:]" '{print $2}' | sed 's/^ *//;s/ *$//')
+echo "cluster: " $cluster
 sed -i "${cluster_line_number}s/${exec_mode}/'${exec_mode}'/" $file_path
 
 ## copy other scripts in Strapi root directory
